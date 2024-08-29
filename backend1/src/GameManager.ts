@@ -19,6 +19,7 @@ export class GameManager{
 
     addUser(socket : WebSocket){
         this.users.push(socket);
+        this.addHandler(socket);
     }
 
     removeUser(socket : WebSocket){
@@ -47,8 +48,10 @@ export class GameManager{
             }
 
             if(message.type === MOVE){
+                console.log("move initiated")
                 const game = this.games.find(game => game.player1 === socket || game.player2 === socket);
                     if(game){
+                        console.log("inside makeMove");
                         game.makeMove(socket , message.move);
                     }
 
